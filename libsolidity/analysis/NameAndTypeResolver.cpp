@@ -502,7 +502,7 @@ bool DeclarationRegistrationHelper::registerDeclaration(
 			secondDeclarationLocation = *_errorLocation;
 		}
 
-		_errorReporter.declarationError(
+		_errorReporter.fatalDeclarationError(
 			secondDeclarationLocation,
 			SecondarySourceLocation().append("The previous declaration is here:", firstDeclarationLocation),
 			"Identifier already declared."

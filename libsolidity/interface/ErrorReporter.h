@@ -68,6 +68,8 @@ public:
 
 	void declarationError(SourceLocation const& _location, std::string const& _description);
 
+	void fatalDeclarationError(SourceLocation const& _location, SecondarySourceLocation const& _secondaryLocation, std::string const& _description);
+
 	void fatalDeclarationError(SourceLocation const& _location, std::string const& _description);
 
 	void parserError(SourceLocation const& _location, std::string const& _description);
@@ -96,6 +98,11 @@ private:
 	void error(Error::Type _type,
 		SourceLocation const& _location,
 		SecondarySourceLocation const& _secondaryLocation,
+		std::string const& _description = std::string());
+
+	void fatalError(Error::Type _type,
+		SourceLocation const& _location = SourceLocation(),
+		SecondarySourceLocation const& _secondaryLocation = SecondarySourceLocation(),
 		std::string const& _description = std::string());
 
 	void fatalError(Error::Type _type,

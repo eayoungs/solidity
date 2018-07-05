@@ -118,6 +118,12 @@ bool ErrorReporter::checkForExcessiveErrors(Error::Type _type)
 	return false;
 }
 
+void ErrorReporter::fatalError(Error::Type _type, SourceLocation const& _location, SecondarySourceLocation const& _secondaryLocation, string const& _description)
+{
+	error(_type, _location, _secondaryLocation, _description);
+	BOOST_THROW_EXCEPTION(FatalError());
+}
+
 void ErrorReporter::fatalError(Error::Type _type, SourceLocation const& _location, string const& _description)
 {
 	error(_type, _location, _description);
@@ -134,7 +140,7 @@ void ErrorReporter::clear()
 	m_errorList.clear();
 }
 
-void ErrorReporter::declarationError(SourceLocation const& _location, SecondarySourceLocation const&_secondaryLocation, string const& _description)
+void ErrorReporter::declarationError(SourceLocation const& _location, SecondarySourceLocation const& _secondaryLocation, string const& _description)
 {
 	error(
 		Error::Type::DeclarationError,
@@ -151,6 +157,15 @@ void ErrorReporter::declarationError(SourceLocation const& _location, string con
 		_location,
 		_description
 	);
+}
+
+void ErrorReporter::fatalDeclarationError(SourceLocation const& _location, SecondarySourceLocation const& _secondaryLocation, std::string const& _description)
+{
+	fatalError(
+		Error::Type::DeclarationError,
+		_location,
+		_secondaryLocation,
+		_description);
 }
 
 void ErrorReporter::fatalDeclarationError(SourceLocation const& _location, std::string const& _description)
